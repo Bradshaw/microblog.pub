@@ -7,6 +7,8 @@ services:
     volumes:
      - "${CONFIG_DIR}:/app/config"
      - "./static:/app/static"
+     - "/etc/timezone:/etc/timezone:ro"
+     - "/etc/localtime:/etc/localtime:ro"
     environment:
      - MICROBLOGPUB_MONGODB_HOST=mongo:27017
      - MICROBLOGPUB_INTERNAL_HOST=http://${COMPOSE_PROJECT_NAME}_web_1:5005
@@ -17,10 +19,14 @@ services:
     image: "mongo:3"
     volumes:
      - "${DATA_DIR}/mongodb:/data/db"
+     - "/etc/timezone:/etc/timezone:ro"
+     - "/etc/localtime:/etc/localtime:ro"
   poussetaches:
     image: "poussetaches/poussetaches:latest"
     volumes:
      - "${DATA_DIR}/poussetaches:/app/poussetaches_data"
+     - "/etc/timezone:/etc/timezone:ro"
+     - "/etc/localtime:/etc/localtime:ro"
     environment:
      - POUSSETACHES_AUTH_KEY=${POUSSETACHES_AUTH_KEY}
 #    ports:
